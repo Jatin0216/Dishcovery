@@ -2,21 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dishcovery — Loading</title>
-  <link rel="stylesheet" href="splash.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dishcovery — Welcome</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
-  <div class="splash-container">
-    <div class="logo">👨‍🍳</div>
-    <h1 class="app-name">Dishcovery</h1>
-    <p class="tagline">Discover recipes from what you have...</p>
+<body class="splash-body">
+  <div class="splash-overlay"></div>
+  <div class="splash-content">
+    <div class="logo-chef" aria-label="Chef cap logo">👨‍🍳</div>
+    <h1 class="brand">Dishcovery</h1>
+    <p class="tagline typewriter">Discover recipes from what you have</p>
+    <div class="loader-line">
+      <div class="loader-progress"></div>
+    </div>
   </div>
 
   <script>
-    setTimeout(() => {
-      window.location.href = "home.html";
-    }, 4000);
+    // Faux loading then redirect
+    setTimeout(() => { window.location.href = "home.html"; }, 3500);
   </script>
 </body>
 </html>
