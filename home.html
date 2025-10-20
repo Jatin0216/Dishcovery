@@ -14,12 +14,10 @@
       position: fixed;
       top: 1rem;
       right: 1rem;
-      background: #facc15;
+      background: transparent;
       border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 999px;
+      font-size: 1.5rem;
       cursor: pointer;
-      font-weight: bold;
     }
     .language-select {
       position: fixed;
@@ -44,6 +42,10 @@
     body[data-theme="dark"] .card {
       background: #1e293b;
       color: #f1f5f9;
+    }
+    .card img {
+      width: 100%;
+      border-radius: 8px;
     }
     .categories {
       display: flex;
@@ -76,28 +78,29 @@
     <option>Spanish</option>
   </select>
 
-  <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
+  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
 
   <header style="text-align:center;margin-top:3rem">
-    <h1>🍽️ Trending Dishes</h1>
+    <div style="font-size:3rem">👨‍🍳</div>
+    <h1>Dishcovery</h1>
     <p>Explore the most loved recipes around the world</p>
   </header>
 
   <section class="grid">
     <div class="card">
-      <img src="https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg" alt="Pad Thai" style="width:100%;border-radius:8px">
+      <img src="https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg" alt="Pad Thai">
       <h3>Pad Thai</h3>
     </div>
     <div class="card">
-      <img src="https://www.themealdb.com/images/media/meals/xxyupu1468262513.jpg" alt="Butter Chicken" style="width:100%;border-radius:8px">
+      <img src="https://www.themealdb.com/images/media/meals/xxyupu1468262513.jpg" alt="Butter Chicken">
       <h3>Butter Chicken</h3>
     </div>
     <div class="card">
-      <img src="https://www.themealdb.com/images/media/meals/llcbn01574260722.jpg" alt="Sushi" style="width:100%;border-radius:8px">
+      <img src="https://www.themealdb.com/images/media/meals/llcbn01574260722.jpg" alt="Sushi">
       <h3>Sushi</h3>
     </div>
     <div class="card">
-      <img src="https://www.themealdb.com/images/media/meals/wyxwsp1486979827.jpg" alt="Tacos" style="width:100%;border-radius:8px">
+      <img src="https://www.themealdb.com/images/media/meals/wyxwsp1486979827.jpg" alt="Tacos">
       <h3>Tacos</h3>
     </div>
   </section>
@@ -123,7 +126,9 @@
   <script>
     function toggleTheme() {
       const current = document.body.getAttribute('data-theme');
-      document.body.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+      const newTheme = current === 'dark' ? 'light' : 'dark';
+      document.body.setAttribute('data-theme', newTheme);
+      document.querySelector('.theme-toggle').textContent = newTheme === 'dark' ? '☀️' : '🌙';
     }
     document.body.setAttribute('data-theme', 'light');
   </script>
