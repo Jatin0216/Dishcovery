@@ -3,31 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dishcovery — Your Global AI Chef</title>
+  <title>Dishcovery — Global AI Recipe Maker</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-image: linear-gradient(to right, #fdf6e3, #ffe0b2);
+    }
+  </style>
 </head>
-<body class="bg-gradient-to-br from-yellow-100 to-red-100 min-h-screen flex flex-col items-center justify-center text-center p-6">
+<body class="min-h-screen flex flex-col items-center justify-center text-center px-6 py-12">
 
-  <!-- Header -->
-  <header class="mb-8">
-    <h1 class="text-4xl md:text-6xl font-bold text-red-700 animate-bounce">Welcome to Dishcovery 🍽️</h1>
-    <p class="mt-4 text-lg md:text-xl text-gray-700 italic">“Discover global flavors, powered by AI.”</p>
-  </header>
-
-  <!-- Main Buttons -->
-  <main class="space-y-6">
-    <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-full shadow-lg transition duration-300">
-      Enter Ingredients
-    </button>
-    <button class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-6 rounded-full shadow-lg transition duration-300">
-      Choose Dish Type
-    </button>
-  </main>
-
-  <!-- Footer -->
-  <footer class="mt-10 text-sm text-gray-600">
-    Made with ❤️ by Jatin | Powered by AI
-  </footer>
+  <!-- Hero Section -->
+  <div class="max-w-3xl">
+    <h1 class="text-5xl md:text-6xl font-extrabold text-red-600 mb-4 animate-pulse">
+      Dishcovery 🍽️
+    </h1>
+    <p class="text-xl md:text-2xl text-gray-700 mb-8">
+      Discover global recipes instantly. Just enter your ingredients and let the magic begin.
+    </p>
+    <div class="flex flex-col md:flex-row gap-4 justify-center">
+      <button class="bg-red-500 hover:bg-red-600 text-white font-semibold py-3 px-6 rounded-full shadow-md transition duration-300">
+        Enter Ingredients
+      </button>
+      <button class="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 px-6 rounded-full shadow-md transition duration-300">
+        Explore Dishes
+      </button>
+    </div>
+  </div>
 
 </body>
 </html>
