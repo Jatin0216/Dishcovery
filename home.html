@@ -1,158 +1,133 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dishcovery — Home</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    body[data-theme="dark"] {
-      background: #0f172a;
-      color: #f1f5f9;
-    }
-    .theme-toggle {
-      position: fixed;
-      top: 1rem;
-      right: 1rem;
-      background: transparent;
-      border: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
-    .language-select {
-      position: fixed;
-      top: 1rem;
-      left: 1rem;
-      padding: 0.4rem;
-      border-radius: 6px;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 1rem;
-      padding: 2rem;
-    }
-    .card {
-      background: white;
-      border-radius: 12px;
-      padding: 1rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      text-align: center;
-    }
-    body[data-theme="dark"] .card {
-      background: #1e293b;
-      color: #f1f5f9;
-    }
-    .card img {
-      width: 100%;
-      border-radius: 8px;
-    }
-    .categories {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      justify-content: center;
-      padding: 1rem;
-    }
-    .categories button {
-      padding: 0.5rem 1rem;
-      border-radius: 999px;
-      border: 1px solid #ccc;
-      background: #f8fafc;
-      cursor: pointer;
-    }
-    body[data-theme="dark"] .categories button {
-      background: #334155;
-      color: white;
-      border-color: #475569;
-    }
-  </style>
 </head>
-<body>
-  <select class="language-select">
-    <optgroup label="Indian Languages">
-      <option>Hindi</option>
-      <option>Marathi</option>
-      <option>Tamil</option>
-      <option>Telugu</option>
-      <option>Kannada</option>
-      <option>Malayalam</option>
-      <option>Bengali</option>
-      <option>Gujarati</option>
-      <option>Punjabi</option>
-      <option>Urdu</option>
-      <option>Odia</option>
-      <option>Assamese</option>
-    </optgroup>
-    <optgroup label="Foreign Languages">
-      <option>English</option>
-      <option>French</option>
-      <option>Spanish</option>
-      <option>German</option>
-      <option>Italian</option>
-      <option>Portuguese</option>
-      <option>Arabic</option>
-      <option>Chinese</option>
-      <option>Japanese</option>
-      <option>Korean</option>
-      <option>Russian</option>
-      <option>Turkish</option>
-    </optgroup>
-  </select>
+<body data-theme="light">
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="left-controls">
+      <button class="logo-inline" aria-label="Chef cap logo">👨‍🍳</button>
+      <span class="brand-inline" data-i18n="brand">Dishcovery</span>
+    </div>
+    <div class="right-controls">
+      <select id="langSelect" class="select" aria-label="Language">
+        <optgroup label="Indian">
+          <option value="hi">Hindi</option>
+          <option value="mr">Marathi</option>
+          <option value="ta">Tamil</option>
+          <option value="te">Telugu</option>
+          <option value="kn">Kannada</option>
+          <option value="ml">Malayalam</option>
+          <option value="bn">Bengali</option>
+          <option value="gu">Gujarati</option>
+          <option value="pa">Punjabi</option>
+          <option value="ur">Urdu</option>
+          <option value="or">Odia</option>
+          <option value="as">Assamese</option>
+        </optgroup>
+        <optgroup label="Global">
+          <option value="en" selected>English</option>
+          <option value="fr">French</option>
+          <option value="es">Spanish</option>
+          <option value="de">German</option>
+          <option value="it">Italian</option>
+          <option value="pt">Portuguese</option>
+          <option value="ar">Arabic</option>
+          <option value="zh">Chinese</option>
+          <option value="ja">Japanese</option>
+          <option value="ko">Korean</option>
+          <option value="ru">Russian</option>
+          <option value="tr">Turkish</option>
+        </optgroup>
+      </select>
 
-  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
-
-  <header style="text-align:center;margin-top:3rem">
-    <div style="font-size:3rem">👨‍🍳</div>
-    <h1>Dishcovery</h1>
-    <p>Explore the most loved recipes around the world</p>
+      <button id="themeToggle" class="icon-btn" aria-label="Toggle theme">🌙</button>
+    </div>
   </header>
 
-  <section class="grid">
-    <div class="card">
-      <img src="https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg" alt="Pad Thai">
-      <h3>Pad Thai</h3>
+  <!-- Hero with slideshow + quote -->
+  <section class="hero">
+    <div class="hero-slides">
+      <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1543353071-087092ec3932?q=80&w=1600')"></div>
+      <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1600')"></div>
+      <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1547592180-85f173990554?q=80&w=1600')"></div>
+      <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1493770348161-8f842db7305d?q=80&w=1600')"></div>
     </div>
-    <div class="card">
-      <img src="https://www.themealdb.com/images/media/meals/xxyupu1468262513.jpg" alt="Butter Chicken">
-      <h3>Butter Chicken</h3>
-    </div>
-    <div class="card">
-      <img src="https://www.themealdb.com/images/media/meals/llcbn01574260722.jpg" alt="Sushi">
-      <h3>Sushi</h3>
-    </div>
-    <div class="card">
-      <img src="https://www.themealdb.com/images/media/meals/wyxwsp1486979827.jpg" alt="Tacos">
-      <h3>Tacos</h3>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1 data-i18n="hero_title">Explore the world’s most loved dishes</h1>
+      <p id="quote" class="quote"></p>
+      <a href="recipe.html" class="cta" data-i18n="cta_generate">Generate a recipe</a>
     </div>
   </section>
 
-  <section>
-    <h2 style="text-align:center">🍱 Categories</h2>
-    <div class="categories">
-      <button>Snacks</button>
-      <button>Beverages</button>
-      <button>Desserts</button>
-      <button>Mains</button>
-      <button>Soups</button>
-      <button>Salads</button>
-      <button>Street Food</button>
-      <button>Breakfast</button>
-      <button>Sweets</button>
-      <button>Vegan</button>
-      <button>Festive</button>
-      <button>Quick Meals</button>
+  <!-- Categories -->
+  <section class="section">
+    <h2 data-i18n="categories">Categories</h2>
+    <div class="chips">
+      <button class="chip">Snacks</button>
+      <button class="chip">Beverages</button>
+      <button class="chip">Desserts</button>
+      <button class="chip">Mains</button>
+      <button class="chip">Soups</button>
+      <button class="chip">Salads</button>
+      <button class="chip">Street Food</button>
+      <button class="chip">Breakfast</button>
+      <button class="chip">Sweets</button>
+      <button class="chip">Vegan</button>
+      <button class="chip">Festive</button>
+      <button class="chip">Quick Meals</button>
     </div>
   </section>
 
-  <script>
-    function toggleTheme() {
-      const current = document.body.getAttribute('data-theme');
-      const newTheme = current === 'dark' ? 'light' : 'dark';
-      document.body.setAttribute('data-theme', newTheme);
-      document.querySelector('.theme-toggle').textContent = newTheme === 'dark' ? '☀️' : '🌙';
-    }
-    document.body.setAttribute('data-theme', 'light');
-  </script>
+  <!-- Trending grid -->
+  <section class="section">
+    <h2 data-i18n="trending">Trending</h2>
+    <div class="grid">
+      <div class="card fade">
+        <img src="https://www.themealdb.com/images/media/meals/xxyupu1468262513.jpg" alt="Butter Chicken" />
+        <div class="card-body">
+          <h3>Butter Chicken</h3>
+          <button class="btn-small">View</button>
+        </div>
+      </div>
+      <div class="card fade">
+        <img src="https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg" alt="Pad Thai" />
+        <div class="card-body">
+          <h3>Pad Thai</h3>
+          <button class="btn-small">View</button>
+        </div>
+      </div>
+      <div class="card fade">
+        <img src="https://www.themealdb.com/images/media/meals/llcbn01574260722.jpg" alt="Sushi" />
+        <div class="card-body">
+          <h3>Sushi</h3>
+          <button class="btn-small">View</button>
+        </div>
+      </div>
+      <div class="card fade">
+        <img src="https://www.themealdb.com/images/media/meals/wyxwsp1486979827.jpg" alt="Tacos" />
+        <div class="card-body">
+          <h3>Tacos</h3>
+          <button class="btn-small">View</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span>© Dishcovery</span>
+    <a href="about.html">About</a>
+    <a href="news.html">Food News</a>
+    <a href="planner.html">Meal Planner</a>
+    <a href="recipe.html">Recipe Generator</a>
+    <a href="feedback.html">Feedback</a>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
