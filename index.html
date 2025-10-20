@@ -1,35 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dishcovery — Global AI Recipe Maker</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    body {
-      background-image: linear-gradient(to right, #fdf6e3, #ffe0b2);
-    }
-  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dishcovery — Discover Recipes from Ingredients</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center text-center px-6 py-12">
+<body>
+  <header>
+    <div style="display:flex;align-items:center;gap:0.75rem">
+      <div class="logo-block" aria-hidden="true">D</div>
+      <div>
+        <h1>Dishcovery</h1>
+        <p>Instant recipes from what you have</p>
+      </div>
+    </div>
 
-  <!-- Hero Section -->
-  <div class="max-w-3xl">
-    <h1 class="text-5xl md:text-6xl font-extrabold text-red-600 mb-4 animate-pulse">
-      Dishcovery 🍽️
-    </h1>
-    <p class="text-xl md:text-2xl text-gray-700 mb-8">
-      Discover global recipes instantly. Just enter your ingredients and let the magic begin.
-    </p>
-    <div class="flex flex-col md:flex-row gap-4 justify-center">
-      <button class="bg-red-500 hover:bg-red-600 text-white font-semibold py-3 px-6 rounded-full shadow-md transition duration-300">
-        Enter Ingredients
-      </button>
-      <button class="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 px-6 rounded-full shadow-md transition duration-300">
-        Explore Dishes
-      </button>
+    <nav style="display:flex;gap:0.5rem;align-items:center">
+      <button id="openIngredients" class="btn-primary">Enter Ingredients</button>
+      <button id="exploreBtn" class="btn-outline">Explore Dishes</button>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>Turn pantry into dinner</h2>
+      <p class="lead">Type or paste ingredients, choose a style, and get a clear, cookable recipe with serving size and step-by-step instructions.</p>
+
+      <div style="margin-top:1.5rem;display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap">
+        <button id="quickOpen" class="btn-accent">Quick Recipe</button>
+        <button id="surprise" class="btn-outline">Surprise Me</button>
+      </div>
+    </section>
+
+    <section id="results" aria-live="polite" class="hidden">
+      <article class="card">
+        <header style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem">
+          <div>
+            <h3 id="dishTitle">Dish name</h3>
+            <p id="dishMeta" class="text-muted">Cuisine • Time • Serves</p>
+          </div>
+          <div>
+            <button id="saveBtn" class="btn-outline">Save</button>
+          </div>
+        </header>
+
+        <div style="margin-top:1rem;display:grid;grid-template-columns:1fr;gap:1rem">
+          <div>
+            <h4 class="text-muted">Ingredients</h4>
+            <ul id="ingredientsList"></ul>
+
+            <h4 class="text-muted" style="margin-top:0.75rem">Instructions</h4>
+            <ol id="instructions"></ol>
+          </div>
+
+          <aside class="text-muted" style="background:linear-gradient(#fff8eb,#fff);padding:0.75rem;border-radius:8px">
+            <p><strong>Tip</strong>: Swap ingredients freely to adjust flavor.</p>
+            <p id="culturalNote" style="margin-top:0.5rem">Cultural note will appear here.</p>
+          </aside>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    Dishcovery — Explore recipes from your pantry
+  </footer>
+
+  <!-- Ingredients Modal -->
+  <div id="modal" class="hidden" aria-hidden="true">
+    <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h3 id="modalTitle">Enter Ingredients</h3>
+        <button id="closeModal" aria-label="Close">✕</button>
+      </div>
+
+      <label class="text-muted" for="ingredientsInput">Ingredients separated by commas</label>
+      <textarea id="ingredientsInput" rows="4" placeholder="e.g. chicken, garlic, tomato, rice" style="width:100%;margin-top:0.5rem;padding:0.6rem;border-radius:6px;border:1px solid rgba(15,23,42,0.06)"></textarea>
+
+      <div style="display:flex;gap:0.5rem;justify-content:flex-end;margin-top:0.75rem;align-items:center">
+        <select id="cuisine" style="padding:0.45rem;border-radius:6px;border:1px solid rgba(15,23,42,0.06)">
+          <option value="">Any cuisine</option>
+          <option>Indian</option>
+          <option>Italian</option>
+          <option>Mexican</option>
+          <option>Chinese</option>
+        </select>
+        <button id="generateBtn" class="btn-primary">Generate Recipe</button>
+      </div>
     </div>
   </div>
 
+  <script src="script.js"></script>
 </body>
 </html>
