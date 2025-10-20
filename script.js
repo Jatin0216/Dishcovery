@@ -1,106 +1,78 @@
-// script.js — Dishcovery interactivity and demo recipe generator
-
-document.addEventListener('DOMContentLoaded', () => {
-  const modal = document.getElementById('modal');
-  const openBtn = document.getElementById('openIngredients');
-  const closeBtn = document.getElementById('closeModal');
-  const generateBtn = document.getElementById('generateBtn');
-  const quickBtn = document.getElementById('quickOpen');
-  const surpriseBtn = document.getElementById('surprise');
-
-  const results = document.getElementById('results');
-  const dishTitle = document.getElementById('dishTitle');
-  const dishMeta = document.getElementById('dishMeta');
-  const ingredientsList = document.getElementById('ingredientsList');
-  const instructionsList = document.getElementById('instructions');
-  const culturalNote = document.getElementById('culturalNote');
-
-  const ingredientsInput = document.getElementById('ingredientsInput');
-  const cuisineSelect = document.getElementById('cuisine');
-
-  function showModal() {
-    modal.classList.remove('hidden');
-    modal.classList.add('show');
-    modal.setAttribute('aria-hidden', 'false');
-    setTimeout(() => ingredientsInput?.focus(), 120);
-  }
-
-  function hideModal() {
-    modal.classList.add('hidden');
-    modal.classList.remove('show');
-    modal.setAttribute('aria-hidden', 'true');
-  }
-
-  openBtn?.addEventListener('click', showModal);
-  closeBtn?.addEventListener('click', hideModal);
-  modal?.addEventListener('click', (e) => { if (e.target === modal) hideModal(); });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hideModal(); });
-
-  function populateList(container, items) {
-    container.innerHTML = '';
-    items.forEach(item => {
-      const li = document.createElement('li');
-      li.textContent = item;
-      container.appendChild(li);
-    });
-  }
-
-  function showResults(data) {
-    dishTitle.textContent = data.title;
-    dishMeta.textContent = `${data.cuisine} • ${data.time} • Serves ${data.serves}`;
-    populateList(ingredientsList, data.ingredients);
-    populateList(instructionsList, data.instructions);
-    culturalNote.textContent = data.note;
-    results.classList.remove('hidden');
-    hideModal();
-    setTimeout(() => results.scrollIntoView({ behavior: 'smooth' }), 120);
-  }
-
-  function demoGenerate(ingredientsText, cuisine) {
-    const raw = (ingredientsText || '').split(',').map(s => s.trim()).filter(Boolean);
-    const ingredients = raw.length ? raw : ['pantry basics'];
-    const primary = ingredients[0] || 'Pan';
-    const title = `${primary.charAt(0).toUpperCase() + primary.slice(1)} Skillet`;
-    const time = '25–35 min';
-    const serves = 2;
-    const instructions = [
-      `Prepare ingredients: chop ${ingredients.join(', ')}.`,
-      'Heat oil in a pan and sauté aromatics.',
-      'Add main ingredients and cook until tender.',
-      'Season and serve hot with garnish.'
-    ];
-    const note = cuisine ? `${cuisine}-inspired flavors.` : 'Flexible home-style recipe.';
-    return { title, cuisine: cuisine || 'Fusion', time, serves, ingredients, instructions, note };
-  }
-
-  generateBtn?.addEventListener('click', () => {
-    const ing = ingredientsInput?.value || '';
-    const cuisine = cuisineSelect?.value || '';
-    const data = demoGenerate(ing, cuisine);
-    showResults(data);
+// Theme toggle
+const themeBtn = document.getElementById('themeToggle');
+if (themeBtn) {
+  const applyTheme = t => {
+    document.body.setAttribute('data-theme', t);
+    themeBtn.textContent = t === 'dark' ? '☀️' : '🌙';
+    localStorage.setItem('theme', t);
+  };
+  const saved = localStorage.getItem('theme') || 'light';
+  applyTheme(saved);
+  themeBtn.addEventListener('click', () => {
+    const t = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    applyTheme(t);
   });
+}
 
-  quickBtn?.addEventListener('click', () => {
-    ingredientsInput.value = 'tomato, garlic, pasta';
-    cuisineSelect.value = 'Italian';
-    generateBtn.click();
-  });
+// Rotating food quotes
+const quotes = [
+  "Good food is the foundation of genuine happiness.",
+  "Cooking is love made visible.",
+  "Spices are the soul of a dish.",
+  "Eat locally, savor globally.",
+  "A recipe has no soul. You as the cook must bring soul to the recipe.",
+  "Great meals invite great conversations."
+];
+const quoteEl = document.getElementById('quote');
+if (quoteEl) {
+  let qi = 0;
+  const setQ = () => { quoteEl.textContent = quotes[qi % quotes.length]; qi++; };
+  setQ();
+  setInterval(setQ, 5000);
+}
 
-  surpriseBtn?.addEventListener('click', () => {
-    const examples = [
-      ['chicken, turmeric, yogurt', 'Indian'],
-      ['corn, black beans, cilantro', 'Mexican'],
-      ['egg, rice, scallion', 'Chinese']
-    ];
-    const pick = examples[Math.floor(Math.random() * examples.length)];
-    ingredientsInput.value = pick[0];
-    cuisineSelect.value = pick[1];
-    generateBtn.click();
-  });
+// Language engine (basic i18n strings)
+const i18n = {
+  en: { brand: "Dishcovery", hero_title: "Explore the world’s most loved dishes", cta_generate: "Generate a recipe", categories: "Categories", trending: "Trending" },
+  hi: { brand: "डिशकवरी", hero_title: "दुनिया के सबसे पसंदीदा व्यंजन खोजें", cta_generate: "रेसिपी बनाएँ", categories: "श्रेणियाँ", trending: "ट्रेंडिंग" },
+  mr: { brand: "डिशकव्हरी", hero_title: "जगातील आवडते पदार्थ शोधा", cta_generate: "रेसिपी तयार करा", categories: "वर्ग", trending: "ट्रेंडिंग" },
+  ta: { brand: "டிஷ்கவரி", hero_title: "உலகின் பிடித்த உணவுகளை ஆராயுங்கள்", cta_generate: "செய்முறை உருவாக்க", categories: "வகைகள்", trending: "பிரபலமானவை" },
+  te: { brand: "డిష్కవరీ", hero_title: "ప్రపంచంలోని ఇష్టమైన వంటకాలు అన్వేషించండి", cta_generate: "వంటకం తయారు చేయండి", categories: "వర్గాలు", trending: "ట్రెండింగ్" },
+  kn: { brand: "ಡಿಶ್ಕವರಿ", hero_title: "ವಿಶ್ವದ ಮೆಚ್ಚಿನ ಆಹಾರಗಳನ್ನು ಅನ್ವೇಷಿಸಿ", cta_generate: "ಪಾಕವಿಧಾನ ರಚಿಸಿ", categories: "ವರ್ಗಗಳು", trending: "ಟ್ರೆಂಡಿಂಗ್" },
+  ml: { brand: "ഡിഷ്കവറി", hero_title: "ലോകത്തിലെ പ്രിയപ്പെട്ട വിഭവങ്ങൾ അന്വേഷിക്കുക", cta_generate: "റെസിപ്പി സൃഷ്ടിക്കുക", categories: "വിഭാഗങ്ങൾ", trending: "ട്രെൻഡിംഗ്" },
+  bn: { brand: "ডিশকভারি", hero_title: "বিশ্বের সেরা পছন্দের খাবার আবিষ্কার করুন", cta_generate: "রেসিপি তৈরি করুন", categories: "বিভাগ", trending: "ট্রেন্ডিং" },
+  gu: { brand: "ડિશકવરી", hero_title: "વિશ્વના મનપસંદ વાનગીઓ શોધો", cta_generate: "વિધિ બનાવો", categories: "શ્રેણીઓ", trending: "ટ્રેન્ડિંગ" },
+  pa: { brand: "ਡਿਸਕਵਰੀ", hero_title: "ਦੁਨੀਆ ਦੇ ਮਨਪਸੰਦ ਭੋਜਨ ਖੋਜੋ", cta_generate: "ਰੈਸਪੀ ਬਣਾਓ", categories: "ਸ਼੍ਰੇਣੀਆਂ", trending: "ਟ੍ਰੈਂਡਿੰਗ" },
+  ur: { brand: "ڈشکوری", hero_title: "دنیا کے پسندیدہ پکوان تلاش کریں", cta_generate: "ترکیب بنائیں", categories: "زمرے", trending: "ٹرینڈنگ" },
+  or: { brand: "ଡିଶକଭରୀ", hero_title: "ବିଶ୍ୱର ପ୍ରିୟ ଖାଦ୍ୟ ଖୋଜନ୍ତୁ", cta_generate: "ରେସିପି ତିଆରି କରନ୍ତୁ", categories: "ଶ୍ରେଣୀ", trending: "ଟ୍ରେଣ୍ଡିଂ" },
+  as: { brand: "ডিশকভাৰী", hero_title: "জগতৰ প্ৰিয় খাদ্যসমূহ সন্ধান কৰক", cta_generate: "ৰেচিপি তৈয়াৰ কৰক", categories: "বৰ্গ", trending: "ট্ৰেণ্ডিং" },
+  fr: { brand: "Dishcovery", hero_title: "Explorez les plats les plus appréciés au monde", cta_generate: "Générer une recette", categories: "Catégories", trending: "Tendance" },
+  es: { brand: "Dishcovery", hero_title: "Explora los platos más queridos del mundo", cta_generate: "Generar receta", categories: "Categorías", trending: "Tendencias" },
+  de: { brand: "Dishcovery", hero_title: "Entdecke die beliebtesten Gerichte der Welt", cta_generate: "Rezept generieren", categories: "Kategorien", trending: "Trends" },
+  it: { brand: "Dishcovery", hero_title: "Esplora i piatti più amati al mondo", cta_generate: "Genera ricetta", categories: "Categorie", trending: "Di tendenza" },
+  pt: { brand: "Dishcovery", hero_title: "Explore os pratos mais amados do mundo", cta_generate: "Gerar receita", categories: "Categorias", trending: "Tendências" },
+  ar: { brand: "ديشكفري", hero_title: "استكشف أشهر الأطباق في العالم", cta_generate: "إنشاء وصفة", categories: "الفئات", trending: "الشائع" },
+  zh: { brand: "Dishcovery", hero_title: "探索全球最受欢迎的美食", cta_generate: "生成食谱", categories: "分类", trending: "趋势" },
+  ja: { brand: "Dishcovery", hero_title: "世界で愛される料理を探そう", cta_generate: "レシピを生成", categories: "カテゴリー", trending: "トレンド" },
+  ko: { brand: "Dishcovery", hero_title: "전 세계에서 사랑받는 요리를 탐험하세요", cta_generate: "레시피 생성", categories: "카테고리", trending: "트렌딩" },
+  ru: { brand: "Dishcovery", hero_title: "Исследуйте самые любимые блюда мира", cta_generate: "Сгенерировать рецепт", categories: "Категории", trending: "В тренде" },
+  tr: { brand: "Dishcovery", hero_title: "Dünyanın en sevilen yemeklerini keşfedin", cta_generate: "Tarif oluştur", categories: "Kategoriler", trending: "Trendler" }
+};
 
-  const saveBtn = document.getElementById('saveBtn');
-  saveBtn?.addEventListener('click', () => {
-    saveBtn.textContent = 'Saved';
-    setTimeout(() => saveBtn.textContent = 'Save', 1800);
+function applyLang(lang) {
+  const dict = i18n[lang] || i18n.en;
+  document.documentElement.setAttribute('data-lang', lang);
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.getAttribute('data-i18n');
+    if (dict[k]) el.textContent = dict[k];
   });
-});
+  localStorage.setItem('lang', lang);
+}
+
+const langSelect = document.getElementById('langSelect');
+if (langSelect) {
+  const savedLang = localStorage.getItem('lang') || 'en';
+  langSelect.value = savedLang;
+  applyLang(savedLang);
+  langSelect.addEventListener('change', (e) => applyLang(e.target.value));
+}
