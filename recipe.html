@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dishcovery — Recipe Generator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-theme="light">
+  <header class="topbar">
+    <div class="left-controls">
+      <button class="logo-inline">👨‍🍳</button>
+      <span class="brand-inline">Dishcovery</span>
+    </div>
+    <div class="right-controls">
+      <button id="themeToggle" class="icon-btn">🌙</button>
+    </div>
+  </header>
+
+  <section class="section">
+    <h1>🍳 Recipe Generator</h1>
+    <form id="recipeForm" class="form">
+      <label>Ingredients (comma separated)</label>
+      <input type="text" id="ingredients" placeholder="e.g. chicken, tomato, onion" required />
+
+      <label>Cuisine</label>
+      <select id="cuisine">
+        <option>Indian</option>
+        <option>Italian</option>
+        <option>French</option>
+        <option>Asian</option>
+        <option>Chinese</option>
+        <option>Thai</option>
+        <option>Mexican</option>
+        <option>Mediterranean</option>
+      </select>
+
+      <label>Spice Level</label>
+      <select id="spice">
+        <option>Mild</option>
+        <option>Moderate</option>
+        <option>Spicy</option>
+        <option>Extra Hot</option>
+      </select>
+
+      <label>Sweetness</label>
+      <select id="sweetness">
+        <option>Not sweet</option>
+        <option>Slightly sweet</option>
+        <option>Dessert</option>
+      </select>
+
+      <label>Servings</label>
+      <input type="number" id="servings" min="1" max="10" value="2" />
+
+      <button type="submit" class="cta">Generate Recipe</button>
+    </form>
+  </section>
+
+  <section id="loading" class="section" style="display:none;text-align:center">
+    <div class="loader-line"><div class="loader-progress"></div></div>
+    <p id="loadingQuote">Cooking magic is happening...</p>
+  </section>
+
+  <section id="result" class="section" style="display:none">
+    <h2 id="dishName"></h2>
+    <img id="dishImage" style="max-width:300px;border-radius:12px" />
+    <h3>📝 Ingredients</h3>
+    <ul id="ingredientsList"></ul>
+    <h3>🔧 Tools Required</h3>
+    <ul id="toolsList"></ul>
+    <h3>👩‍🍳 Steps</h3>
+    <ol id="stepsList"></ol>
+    <h3>📋 Get Ready Checklist</h3>
+    <ul id="checklist"></ul>
+    <h3>🥗 Nutrition</h3>
+    <div id="nutrition"></div>
+    <button class="btn-small">⭐ Save to Favorites</button>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
