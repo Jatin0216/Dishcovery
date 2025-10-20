@@ -1,4 +1,6 @@
-// Theme toggle
+// =======================
+// THEME TOGGLE
+// =======================
 const themeBtn = document.getElementById('themeToggle');
 if (themeBtn) {
   const applyTheme = t => {
@@ -14,7 +16,9 @@ if (themeBtn) {
   });
 }
 
-// Rotating food quotes
+// =======================
+// ROTATING QUOTES (HOME PAGE)
+// =======================
 const quotes = [
   "Good food is the foundation of genuine happiness.",
   "Cooking is love made visible.",
@@ -31,7 +35,9 @@ if (quoteEl) {
   setInterval(setQ, 5000);
 }
 
-// Language engine (basic i18n strings)
+// =======================
+// LANGUAGE ENGINE
+// =======================
 const i18n = {
   en: { brand: "Dishcovery", hero_title: "Explore the world’s most loved dishes", cta_generate: "Generate a recipe", categories: "Categories", trending: "Trending" },
   hi: { brand: "डिशकवरी", hero_title: "दुनिया के सबसे पसंदीदा व्यंजन खोजें", cta_generate: "रेसिपी बनाएँ", categories: "श्रेणियाँ", trending: "ट्रेंडिंग" },
@@ -76,3 +82,24 @@ if (langSelect) {
   applyLang(savedLang);
   langSelect.addEventListener('change', (e) => applyLang(e.target.value));
 }
+
+// =======================
+// RECIPE GENERATOR DEMO
+// =======================
+const recipeForm = document.getElementById('recipeForm');
+if (recipeForm) {
+  recipeForm.addEventListener('submit', e => {
+    e.preventDefault();
+    document.getElementById('loading').style.display = 'block';
+    document.getElementById('result').style.display = 'none';
+
+    const loadQuotes = [
+      "Good food takes time...",
+      "Adding a pinch of love...",
+      "Simmering ideas into flavor...",
+      "Whisking up something tasty...",
+      "Cooking is an art, plating is poetry..."
+    ];
+    let qi = 0;
+    const quoteEl = document.getElementById('loadingQuote');
+    const interval = set
