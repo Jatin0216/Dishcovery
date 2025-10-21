@@ -5,140 +5,60 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dishcovery — Food News</title>
   <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg,#06b6d4,#3b82f6,#8b5cf6);
-      background-size: 400% 400%;
-      animation: gradientBG 15s ease infinite;
-      min-height: 100vh;
-      color: #fff;
-    }
-    @keyframes gradientBG {
-      0%{background-position:0% 50%}
-      50%{background-position:100% 50%}
-      100%{background-position:0% 50%}
-    }
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.8rem 1.2rem;
-      background: rgba(0,0,0,0.5);
-      backdrop-filter: blur(6px);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .nav-brand {
-      font-weight: bold;
-      font-size: 1.2rem;
-      color: #fff;
-    }
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 1rem;
-      margin: 0;
-      padding: 0;
-    }
-    .nav-links a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover {
-      color: #facc15;
-    }
-    h1 {
-      text-align: center;
-      padding: 1rem;
-      margin: 0;
-    }
-    .news-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
-      gap: 1rem;
-      padding: 1rem;
-      max-width: 1200px;
-      margin: auto;
-    }
-    .card {
-      background: rgba(255,255,255,0.1);
-      border-radius: 12px;
-      overflow: hidden;
-      backdrop-filter: blur(6px);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.3);
-      transition: transform 0.3s;
-      animation: fadeIn 1s ease;
-    }
-    .card:hover { transform: translateY(-6px); }
-    .card img {
-      width: 100%;
-      height: 160px;
-      object-fit: cover;
-    }
-    .card-body {
-      padding: 1rem;
-    }
-    .card-body h3 {
-      margin: 0 0 0.5rem;
-      font-size: 1.1rem;
-    }
-    .card-body p {
-      margin: 0;
-      font-size: 0.9rem;
-      color: #f1f5f9;
-    }
-    @keyframes fadeIn {
-      from{opacity:0;transform:translateY(20px)}
-      to{opacity:1;transform:translateY(0)}
-    }
+    /* Paste the global high-tech theme CSS here (same as in home.html) */
   </style>
 </head>
-<body>
+<body class="bg-mesh">
   <nav class="navbar">
-    <div class="nav-brand">👨‍🍳 Dishcovery</div>
-    <ul class="nav-links">
-      <li><a href="home.html">Home</a></li>
-      <li><a href="recipe.html">Recipe Generator</a></li>
-      <li><a href="planner.html">Meal Planner</a></li>
-      <li><a href="news.html">Food News</a></li>
-      <li><a href="feedback.html">Feedback</a></li>
-    </ul>
+    <div class="navbar-inner">
+      <div class="brand">👨‍🍳 Dishcovery</div>
+      <ul class="nav-links">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="recipe.html">Recipe Generator</a></li>
+        <li><a href="planner.html">Meal Planner</a></li>
+        <li><a href="news.html">Food News</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+      </ul>
+    </div>
   </nav>
 
-  <h1>📰 Food News & Trends</h1>
-  <div class="news-grid">
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800" alt="Street Food Festival">
-      <div class="card-body">
-        <h3>Street Food Festival Returns</h3>
-        <p>Local chefs bring global flavors to the annual street food festival with new twists on classics.</p>
+  <section class="section reveal">
+    <h1>📰 Food News & Trends</h1>
+    <p style="color:var(--muted)">Stay updated with the latest in global cuisine and culinary creativity.</p>
+    <div class="grid">
+      <div class="card">
+        <img class="card-img" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800" alt="Street Food Festival">
+        <div class="card-body">
+          <h3>Street Food Festival Returns</h3>
+          <p style="color:var(--muted)">Local chefs bring global flavors to the annual street food festival with new twists on classics.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img class="card-img" src="https://images.unsplash.com/photo-1547592180-85f173990554?q=80&w=800" alt="Plant-based Cuisine">
+        <div class="card-body">
+          <h3>Plant-Based Cuisine on the Rise</h3>
+          <p style="color:var(--muted)">Vegan and vegetarian dishes are gaining popularity worldwide, with innovative recipes leading the way.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img class="card-img" src="https://images.unsplash.com/photo-1493770348161-8f842db7305d?q=80&w=800" alt="Fusion Food">
+        <div class="card-body">
+          <h3>Fusion Food Trends</h3>
+          <p style="color:var(--muted)">Chefs are blending cuisines like never before — think sushi tacos and masala pasta.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img class="card-img" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800" alt="Dessert Innovations">
+        <div class="card-body">
+          <h3>Dessert Innovations</h3>
+          <p style="color:var(--muted)">From edible coffee cups to glow-in-the-dark cotton candy, desserts are getting a creative makeover.</p>
+        </div>
       </div>
     </div>
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1547592180-85f173990554?q=80&w=800" alt="Plant-based Cuisine">
-      <div class="card-body">
-        <h3>Plant-Based Cuisine on the Rise</h3>
-        <p>Vegan and vegetarian dishes are gaining popularity worldwide, with innovative recipes leading the way.</p>
-      </div>
-    </div>
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1493770348161-8f842db7305d?q=80&w=800" alt="Fusion Food">
-      <div class="card-body">
-        <h3>Fusion Food Trends</h3>
-        <p>Chefs are blending cuisines like never before — think sushi tacos and masala pasta.</p>
-      </div>
-    </div>
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800" alt="Dessert Innovations">
-      <div class="card-body">
-        <h3>Dessert Innovations</h3>
-        <p>From edible coffee cups to glow-in-the-dark cotton candy, desserts are getting a creative makeover.</p>
-      </div>
-    </div>
-  </div>
+  </section>
+
+  <script>
+    /* Paste the global high-tech JS here (same as in home.html) */
+  </script>
 </body>
 </html>
