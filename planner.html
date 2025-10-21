@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dishcovery — Meal Planner</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg,#f43f5e,#f97316,#facc15,#22c55e);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      min-height: 100vh;
+      color: #fff;
+    }
+    @keyframes gradientBG {
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+    h1 {
+      text-align: center;
+      padding: 1rem;
+      margin: 0;
+    }
+    .planner {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+      gap: 1rem;
+      padding: 1rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .day-card {
+      background: rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 1rem;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+      animation: fadeIn 1s ease;
+    }
+    .day-card h2 {
+      margin-top: 0;
+      font-size: 1.2rem;
+      text-align: center;
+    }
+    .meal {
+      margin: 0.5rem 0;
+    }
+    .meal label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0.2rem;
+    }
+    .meal input {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 8px;
+      border: none;
+    }
+    .controls {
+      text-align: center;
+      margin: 1rem;
+    }
+    .btn {
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 999px;
+      background: #fff;
+      color: #111;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s;
+      margin: 0.3rem;
+    }
+    .btn:hover { transform: scale(1.05); }
+    @keyframes fadeIn {
+      from{opacity:0;transform:translateY(20px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+  </style>
+</head>
+<body>
+  <h1>📅 Weekly Meal Planner</h1>
+  <div class="planner" id="planner"></div>
+  <div class="controls">
+    <button class="btn" onclick="savePlan()">💾 Save Plan</button>
+    <button class="btn" onclick="clearPlan()">🗑️ Clear Week</button>
+  </div>
+
+  <script>
+    const days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+    const meals = ["Breakfast","Lunch","Dinner"];
+    const plannerDiv = document.getElementById('planner');
+
+    // Build planner UI
+    days.forEach(day=>{
+      const card = document.createElement('div');
+      card.className = 'day-card';
+      card.innerHTML = `<h2>${day}</h2>`;
+      meals.forEach(meal=>{
+        const mealDiv = document.createElement('div');
+        mealDiv.className = 'meal';
+        mealDiv.innerHTML = `
+          <label>${meal}</label>
+          <input type="text" id="${day}-${meal}" placeholder="Add recipe...">
+        `;
+        card.appendChild(mealDiv);
+      });
+      plannerDiv.appendChild(card);
+    });
+
+    // Load saved plan
+    window.onload = () => {
+      const saved = JSON.parse(localStorage.getItem('mealPlan')||'{}');
+      for (const key in saved) {
+        const input = document.getElementById(key);
+        if (input) input.value = saved[key];
+      }
+    };
+
+    function savePlan(){
+      const plan = {};
+      days.forEach(day=>{
+        meals.forEach(meal=>{
+          const id = `${day}-${meal}`;
+          plan[id] = document.getElementById(id).value;
+        });
+      });
+      localStorage.setItem('mealPlan',JSON.stringify(plan));
+      alert("✅ Meal plan saved!");
+    }
+
+    function clearPlan(){
+      if(confirm("Clear the whole week?")){
+        localStorage.removeItem('mealPlan');
+        document.querySelectorAll('.meal input').forEach(i=>i.value="");
+      }
+    }
+  </script>
+</body>
+</html>
