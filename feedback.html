@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dishcovery — Feedback</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg,#6366f1,#ec4899,#f59e0b);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+    }
+    @keyframes gradientBG {
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+    .card {
+      background: rgba(255,255,255,0.1);
+      padding: 2rem;
+      border-radius: 16px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      max-width: 500px;
+      width: 90%;
+      animation: fadeIn 1s ease;
+    }
+    h1 { text-align: center; margin-top: 0; }
+    .stars {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      font-size: 2rem;
+      cursor: pointer;
+      margin: 1rem 0;
+    }
+    .star { color: #ddd; transition: transform 0.2s, color 0.2s; }
+    .star:hover { transform: scale(1.2); }
+    .star.selected { color: gold; }
+    textarea {
+      width: 100%;
+      min-height: 100px;
+      border-radius: 8px;
+      border: none;
+      padding: 0.6rem;
+      margin-top: 1rem;
+      font-family: inherit;
+    }
+    button {
+      margin-top: 1rem;
+      width: 100%;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 999px;
+      background: linear-gradient(90deg,#f43f5e,#f97316);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    button:hover { transform: scale(1.05); }
+    .thankyou {
+      display: none;
+      text-align: center;
+      font-size: 1.2rem;
+      animation: popIn 0.8s ease;
+    }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes popIn { from{transform:scale(0.8);opacity:0} to{transform:scale(1);opacity:1} }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>💬 Feedback</h1>
+    <div class="stars" id="stars">
+      <span class="star" data-value="1">★</span>
+      <span class="star" data-value="2">★</span>
+      <span class="star" data-value="3">★</span>
+      <span class="star" data-value="4">★</span>
+      <span class="star" data-value="5">★</span>
+    </div>
+    <textarea id="comment" placeholder="Share your thoughts..."></textarea>
+    <button onclick="submitFeedback()">Submit</button>
+    <div class="thankyou" id="thankyou">🎉 Thank you for your feedback!</div>
+  </div>
+
+  <script>
+    const stars = document.querySelectorAll('.star');
+    let rating = 0;
+
+    stars.forEach(star=>{
+      star.addEventListener('click',()=>{
+        rating = star.dataset.value;
+        stars.forEach(s=>s.classList.remove('selected'));
+        for(let i=0;i<rating;i++){ stars[i].classList.add('selected'); }
+      });
+    });
+
+    function submitFeedback(){
+      const comment = document.getElementById('comment').value;
+      if(rating===0 && comment.trim()===""){
+        alert("Please give a rating or comment!");
+        return;
+      }
+      const feedback = JSON.parse(localStorage.getItem('feedback')||'[]');
+      feedback.push({rating,comment});
+      localStorage.setItem('feedback',JSON.stringify(feedback));
+      document.getElementById('thankyou').style.display='block';
+      setTimeout(()=>{document.getElementById('thankyou').style.display='none';},3000);
+      document.getElementById('comment').value="";
+      stars.forEach(s=>s.classList.remove('selected'));
+      rating=0;
+    }
+  </script>
+</body>
+</html>
