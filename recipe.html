@@ -5,193 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dishcovery — Recipe Generator</title>
   <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1600') no-repeat center/cover;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      color: #fff;
-    }
-    .overlay {
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,0.55);
-      backdrop-filter: blur(6px);
-      z-index: -1;
-    }
-    .form-card {
-      max-width: 600px;
-      margin: 2rem auto;
-      background: rgba(255,255,255,0.1);
-      border-radius: 16px;
-      padding: 2rem;
-      color: #fff;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-      animation: slideIn 1s ease;
-    }
-    .form-card h1 {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
+    body { margin:0; font-family:'Segoe UI',sans-serif; background:url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1600') no-repeat center/cover; min-height:100vh; color:#fff; }
+    .overlay { position:fixed; inset:0; background:rgba(0,0,0,0.55); backdrop-filter:blur(6px); z-index:-1; }
+    .navbar { display:flex; justify-content:space-between; align-items:center; padding:0.8rem 1.2rem; background:rgba(0,0,0,0.5); position:sticky; top:0; }
+    .nav-links { list-style:none; display:flex; gap:1rem; margin:0; padding:0; }
+    .nav-links a { color:#fff; text-decoration:none; }
+    .nav-links a:hover { color:#facc15; }
+    .form-card { max-width:600px; margin:2rem auto; background:rgba(255,255,255,0.1); border-radius:16px; padding:2rem; }
     label { display:block; margin-top:1rem; font-weight:600; }
-    input, select {
-      width: 100%; padding: 0.6rem;
-      border-radius: 8px; border: none;
-      margin-top: 0.3rem;
-      background: rgba(255,255,255,0.8);
-    }
-    button.cta {
-      margin-top: 1.5rem;
-      width: 100%;
-      padding: 0.8rem;
-      border: none;
-      border-radius: 999px;
-      background: linear-gradient(90deg,#f43f5e,#f97316);
-      color: #fff; font-size: 1rem; font-weight: bold;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-    button.cta:hover { transform: scale(1.05); }
-    /* Loading */
-    #loading { text-align:center; color:#fff; display:none; }
-    .chef-hat {
-      font-size:3rem; animation: spin 2s linear infinite;
-    }
-    @keyframes spin { from{transform:rotate(0)} to{transform:rotate(360deg)} }
-    #loadingQuote { animation: fadeText 2s infinite; }
-    @keyframes fadeText {
-      0%,100% { opacity: 0.3; }
-      50% { opacity: 1; }
-    }
-    /* Result */
-    #result {
-      max-width: 700px; margin: 2rem auto;
-      background: rgba(255,255,255,0.95);
-      border-radius: 16px; padding: 2rem;
-      color: #111;
-      display:none;
-      animation: slideUp 1s ease;
-    }
-    #result h2 { margin-top:0; }
-    @keyframes slideIn { from{transform:translateY(40px);opacity:0} to{transform:translateY(0);opacity:1} }
-    @keyframes slideUp { from{transform:translateY(20px);opacity:0} to{transform:translateY(0);opacity:1} }
-    /* Save button glow */
-    button.cta.glow {
-      animation: glowPulse 1s ease;
-    }
-    @keyframes glowPulse {
-      0% { box-shadow: 0 0 0px #facc15; }
-      50% { box-shadow: 0 0 20px #facc15; }
-      100% { box-shadow: 0 0 0px #facc15; }
-    }
+    input,select { width:100%; padding:0.6rem; border-radius:8px; border:none; margin-top:0.3rem; }
+    button.cta { margin-top:1.5rem; width:100%; padding:0.8rem; border:none; border-radius:999px; background:linear-gradient(90deg,#f43f5e,#f97316); color:#fff; font-weight:bold; cursor:pointer; }
+    #loading { text-align:center; display:none; }
+    .chef-hat { font-size:3rem; animation:spin 2s linear infinite; }
+    @keyframes spin {from{transform:rotate(0)}to{transform:rotate(360deg)}}
+    #result { max-width:700px; margin:2rem auto; background:#fff; color:#111; border-radius:16px; padding:2rem; display:none; }
   </style>
 </head>
 <body>
   <div class="overlay"></div>
+  <nav class="navbar">
+    <div class="nav-brand">👨‍🍳 Dishcovery</div>
+    <ul class="nav-links">
+      <li><a href="home.html">Home</a></li>
+      <li><a href="recipe.html">Recipe Generator</a></li>
+      <li><a href="planner.html">Meal Planner</a></li>
+      <li><a href="news.html">Food News</a></li>
+      <li><a href="feedback.html">Feedback</a></li>
+    </ul>
+  </nav>
 
   <div class="form-card">
     <h1>🍳 Recipe Generator</h1>
     <form id="recipeForm">
-      <label>Ingredients</label>
-      <input type="text" id="ingredients" placeholder="e.g. chicken, tomato, onion" required />
-
-      <label>Cuisine</label>
-      <select id="cuisine">
-        <option>Indian</option><option>Italian</option><option>French</option>
-        <option>Asian</option><option>Chinese</option><option>Thai</option>
-        <option>Mexican</option><option>Mediterranean</option>
-      </select>
-
-      <label>Spice Level</label>
-      <select id="spice">
-        <option>Mild</option><option>Moderate</option><option>Spicy</option><option>Extra Hot</option>
-      </select>
-
-      <label>Sweetness</label>
-      <select id="sweetness">
-        <option>Not sweet</option><option>Slightly sweet</option><option>Dessert</option>
-      </select>
-
-      <label>Servings</label>
-      <input type="number" id="servings" min="1" max="10" value="2" />
-
-      <button type="submit" class="cta">✨ Generate Recipe</button>
-    </form>
-  </div>
-
-  <section id="loading">
-    <div class="chef-hat">👨‍🍳</div>
-    <p id="loadingQuote">Cooking magic is happening...</p>
-  </section>
-
-  <section id="result">
-    <h2 id="dishName"></h2>
-    <img id="dishImage" style="max-width:300px;border-radius:12px" />
-    <h3>📝 Ingredients</h3><ul id="ingredientsList"></ul>
-    <h3>🔧 Tools Required</h3><ul id="toolsList"></ul>
-    <h3>👩‍🍳 Steps</h3><ol id="stepsList"></ol>
-    <h3>📋 Checklist</h3><ul id="checklist"></ul>
-    <h3>🥗 Nutrition</h3><div id="nutrition"></div>
-    <button class="cta" id="saveBtn">⭐ Save to Favorites</button>
-  </section>
-
-  <script>
-    const recipeForm = document.getElementById('recipeForm');
-    if (recipeForm) {
-      recipeForm.addEventListener('submit', e => {
-        e.preventDefault();
-        document.querySelector('.form-card').style.display = 'none';
-        const loading = document.getElementById('loading');
-        const result = document.getElementById('result');
-        loading.style.display = 'block';
-        result.style.display = 'none';
-
-        const loadQuotes = [
-          "Good food takes time...",
-          "Adding a pinch of love...",
-          "Simmering ideas into flavor...",
-          "Whisking up something tasty...",
-          "Cooking is an art, plating is poetry..."
-        ];
-        let qi = 0;
-        const quoteEl = document.getElementById('loadingQuote');
-        const interval = setInterval(() => {
-          quoteEl.textContent = loadQuotes[qi % loadQuotes.length];
-          qi++;
-        }, 2000);
-
-        setTimeout(() => {
-          clearInterval(interval);
-          loading.style.display = 'none';
-          result.style.display = 'block';
-
-          // Mock AI output (later connect to API)
-          document.getElementById('dishName').textContent = "Spicy Tomato Chicken Curry";
-          document.getElementById('dishImage').src = "https://www.themealdb.com/images/media/meals/1529446352.jpg";
-
-          document.getElementById('ingredientsList').innerHTML = `
-            <li>Chicken - 500g</li>
-            <li>Tomatoes - 3</li>
-            <li>Onions - 2</li>
-            <li>Spices - as per taste</li>
-          `;
-          document.getElementById('toolsList').innerHTML = `
-            <li>Pan</li><li>Knife</li><li>Spatula</li>
-          `;
-          document.getElementById('stepsList').innerHTML = `
-            <li>Chop onions and tomatoes</li>
-            <li>Sauté onions, add spices</li>
-            <li>Add chicken and tomatoes</li>
-            <li>Simmer until cooked</li>
-          `;
-          document.getElementById('checklist').innerHTML = `
-            <li>Wash chicken</li><li>Keep spices ready</li><li>Prepare chopping board</li>
-          `;
-          document.getElementById('nutrition').innerHTML = `
-            <p>Calories: 450 kcal</p><p>Protein: 35g</p><p>Carbs: 20g</p><p>Fat: 18g</p>
-          `;
-
-          // Animate Save button glow
-          const saveBtn = document.getElementById('saveBtn');
-          saveBtn.addEventListener('click', ()
+      <label>Ingredients</label><input type="
