@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dishcovery — Favorites</title>
+  <style>
+    /* Paste the global high-tech theme CSS here (same as in home.html) */
+  </style>
+</head>
+<body class="bg-mesh">
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <div class="brand">👨‍🍳 Dishcovery</div>
+      <ul class="nav-links">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="recipe.html">Recipe Generator</a></li>
+        <li><a href="planner.html">Meal Planner</a></li>
+        <li><a href="news.html">Food News</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+        <li><a href="favorites.html">Favorites</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="section reveal">
+    <h1>⭐ Your Favorite Recipes</h1>
+    <p style="color:var(--muted)">All the recipes you’ve saved will appear here.</p>
+    <div id="favoritesList" class="grid"></div>
+  </section>
+
+  <script>
+    /* Paste the global high-tech JS here (same as in home.html) */
+
+    const favoritesList = document.getElementById('favoritesList');
+    const favorites = JSON.parse(localStorage.getItem('favorites')||'[]');
+
+    function renderFavorites(){
+      favoritesList.innerHTML = "";
+      if(favorites.length===0){
+        favoritesList.innerHTML = "<p style='color:var(--muted)'>No favorites saved yet.</p>";
+        return;
+      }
+      favorites.forEach((fav,i)=>{
+        const card = document.createElement('div');
+        card.className = 'card reveal';
+        card.innerHTML = `
+          <div class="card-body">
+            <h3 style="margin:0 0 .3rem 0;">${fav.title || 'Recipe '+(i+1)}</h3>
+            <p style="color:var(--muted)">${fav.details || ''}</p>
+            <button class="btn" onclick="removeFavorite(${i})">Remove</button>
+          </div>
+        `;
+        favoritesList.appendChild(card);
+      });
+    }
+
+    function removeFavorite(index){
+      favorites.splice(index,1);
+      localStorage.setItem('favorites',JSON.stringify(favorites));
+      renderFavorites();
+    }
+
+    renderFavorites();
+  </script>
+</body>
+</html>
