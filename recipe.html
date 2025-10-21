@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dishcovery — Recipe Generator</title>
-  <link rel="stylesheet" href="style.css" />
   <style>
     body {
       margin: 0;
@@ -13,6 +12,7 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      color: #fff;
     }
     .overlay {
       position: fixed; inset: 0;
@@ -28,7 +28,7 @@
       padding: 2rem;
       color: #fff;
       box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-      animation: fadeIn 1.2s ease;
+      animation: slideIn 1s ease;
     }
     .form-card h1 {
       text-align: center;
@@ -54,21 +54,37 @@
     }
     button.cta:hover { transform: scale(1.05); }
     /* Loading */
-    #loading { text-align:center; color:#fff; }
+    #loading { text-align:center; color:#fff; display:none; }
     .chef-hat {
       font-size:3rem; animation: spin 2s linear infinite;
     }
     @keyframes spin { from{transform:rotate(0)} to{transform:rotate(360deg)} }
+    #loadingQuote { animation: fadeText 2s infinite; }
+    @keyframes fadeText {
+      0%,100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
     /* Result */
     #result {
       max-width: 700px; margin: 2rem auto;
       background: rgba(255,255,255,0.95);
       border-radius: 16px; padding: 2rem;
+      color: #111;
+      display:none;
       animation: slideUp 1s ease;
     }
     #result h2 { margin-top:0; }
-    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+    @keyframes slideIn { from{transform:translateY(40px);opacity:0} to{transform:translateY(0);opacity:1} }
     @keyframes slideUp { from{transform:translateY(20px);opacity:0} to{transform:translateY(0);opacity:1} }
+    /* Save button glow */
+    button.cta.glow {
+      animation: glowPulse 1s ease;
+    }
+    @keyframes glowPulse {
+      0% { box-shadow: 0 0 0px #facc15; }
+      50% { box-shadow: 0 0 20px #facc15; }
+      100% { box-shadow: 0 0 0px #facc15; }
+    }
   </style>
 </head>
 <body>
@@ -104,12 +120,12 @@
     </form>
   </div>
 
-  <section id="loading" style="display:none">
+  <section id="loading">
     <div class="chef-hat">👨‍🍳</div>
     <p id="loadingQuote">Cooking magic is happening...</p>
   </section>
 
-  <section id="result" style="display:none">
+  <section id="result">
     <h2 id="dishName"></h2>
     <img id="dishImage" style="max-width:300px;border-radius:12px" />
     <h3>📝 Ingredients</h3><ul id="ingredientsList"></ul>
@@ -117,9 +133,65 @@
     <h3>👩‍🍳 Steps</h3><ol id="stepsList"></ol>
     <h3>📋 Checklist</h3><ul id="checklist"></ul>
     <h3>🥗 Nutrition</h3><div id="nutrition"></div>
-    <button class="cta">⭐ Save to Favorites</button>
+    <button class="cta" id="saveBtn">⭐ Save to Favorites</button>
   </section>
 
-  <script src="script.js"></script>
-</body>
-</html>
+  <script>
+    const recipeForm = document.getElementById('recipeForm');
+    if (recipeForm) {
+      recipeForm.addEventListener('submit', e => {
+        e.preventDefault();
+        document.querySelector('.form-card').style.display = 'none';
+        const loading = document.getElementById('loading');
+        const result = document.getElementById('result');
+        loading.style.display = 'block';
+        result.style.display = 'none';
+
+        const loadQuotes = [
+          "Good food takes time...",
+          "Adding a pinch of love...",
+          "Simmering ideas into flavor...",
+          "Whisking up something tasty...",
+          "Cooking is an art, plating is poetry..."
+        ];
+        let qi = 0;
+        const quoteEl = document.getElementById('loadingQuote');
+        const interval = setInterval(() => {
+          quoteEl.textContent = loadQuotes[qi % loadQuotes.length];
+          qi++;
+        }, 2000);
+
+        setTimeout(() => {
+          clearInterval(interval);
+          loading.style.display = 'none';
+          result.style.display = 'block';
+
+          // Mock AI output (later connect to API)
+          document.getElementById('dishName').textContent = "Spicy Tomato Chicken Curry";
+          document.getElementById('dishImage').src = "https://www.themealdb.com/images/media/meals/1529446352.jpg";
+
+          document.getElementById('ingredientsList').innerHTML = `
+            <li>Chicken - 500g</li>
+            <li>Tomatoes - 3</li>
+            <li>Onions - 2</li>
+            <li>Spices - as per taste</li>
+          `;
+          document.getElementById('toolsList').innerHTML = `
+            <li>Pan</li><li>Knife</li><li>Spatula</li>
+          `;
+          document.getElementById('stepsList').innerHTML = `
+            <li>Chop onions and tomatoes</li>
+            <li>Sauté onions, add spices</li>
+            <li>Add chicken and tomatoes</li>
+            <li>Simmer until cooked</li>
+          `;
+          document.getElementById('checklist').innerHTML = `
+            <li>Wash chicken</li><li>Keep spices ready</li><li>Prepare chopping board</li>
+          `;
+          document.getElementById('nutrition').innerHTML = `
+            <p>Calories: 450 kcal</p><p>Protein: 35g</p><p>Carbs: 20g</p><p>Fat: 18g</p>
+          `;
+
+          // Animate Save button glow
+          const saveBtn = document.getElementById('saveBtn');
+          saveBtn.addEventListener('click', ()
