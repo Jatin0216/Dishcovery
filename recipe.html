@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dishcovery — Recipe Generator</title>
   <style>
-    /* Paste the global high-tech theme CSS here (from home.html) */
+    /* Paste the global high-tech theme CSS here (same as in home.html) */
   </style>
 </head>
 <body class="bg-mesh">
@@ -18,6 +18,7 @@
         <li><a href="planner.html">Meal Planner</a></li>
         <li><a href="news.html">Food News</a></li>
         <li><a href="feedback.html">Feedback</a></li>
+        <li><a href="favorites.html">Favorites</a></li>
       </ul>
     </div>
   </nav>
@@ -50,16 +51,19 @@
     <div id="result" class="card" style="display:none; padding:1.5rem;">
       <h2>✨ Suggested Recipe</h2>
       <p id="recipeOutput"></p>
+      <button id="saveBtn" class="btn" style="margin-top:1rem;">⭐ Save to Favorites</button>
     </div>
   </section>
 
   <script>
-    /* Paste the global high-tech JS here (from home.html) */
+    /* Paste the global high-tech JS here (same as in home.html) */
 
     const form = document.getElementById('recipeForm');
     const loading = document.getElementById('loading');
     const result = document.getElementById('result');
     const output = document.getElementById('recipeOutput');
+    const saveBtn = document.getElementById('saveBtn');
+    let currentRecipe = "";
 
     form.addEventListener('submit', e=>{
       e.preventDefault();
@@ -70,8 +74,17 @@
         result.style.display='block';
         const ing = document.getElementById('ingredients').value;
         const cui = document.getElementById('cuisine').value;
-        output.textContent = `Try making a delicious ${cui || 'fusion'} dish with ${ing || 'your ingredients'}!`;
+        currentRecipe = `A ${cui || 'fusion'} dish using ${ing || 'your ingredients'}`;
+        output.textContent = currentRecipe;
       },2000);
+    });
+
+    saveBtn.addEventListener('click', ()=>{
+      if(!currentRecipe){ alert("Generate a recipe first!"); return; }
+      const favorites = JSON.parse(localStorage.getItem('favorites')||'[]');
+      favorites.push({title: currentRecipe, details: "Saved from Recipe Generator"});
+      localStorage.setItem('favorites', JSON.stringify(favorites));
+      alert("⭐ Recipe saved to Favorites!");
     });
   </script>
 </body>
