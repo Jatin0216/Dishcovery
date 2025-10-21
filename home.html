@@ -5,58 +5,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dishcovery — Home</title>
   <style>
-    body { margin:0; font-family:'Segoe UI',sans-serif; background:#f8fafc; }
-    .navbar { display:flex; justify-content:space-between; align-items:center;
-      padding:0.8rem 1.2rem; background:#111; color:#fff; position:sticky; top:0; }
-    .nav-links { list-style:none; display:flex; gap:1rem; margin:0; padding:0; }
-    .nav-links a { color:#fff; text-decoration:none; font-weight:500; }
-    .nav-links a:hover { color:#facc15; }
-    .hero { text-align:center; padding:3rem 1rem; background:#f43f5e; color:#fff; }
-    .section { padding:2rem 1rem; max-width:1000px; margin:auto; }
-    .chips { display:flex; flex-wrap:wrap; gap:0.5rem; }
-    .chip { padding:0.5rem 1rem; border-radius:999px; background:#f1f5f9; }
-    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1rem; }
-    .card { background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.1); }
-    .card img { width:100%; height:150px; object-fit:cover; }
-    .card-body { padding:1rem; }
+    /* Insert the global high-tech theme CSS here (from my previous message) */
   </style>
 </head>
-<body>
+<body class="bg-mesh">
   <nav class="navbar">
-    <div class="nav-brand">👨‍🍳 Dishcovery</div>
-    <ul class="nav-links">
-      <li><a href="home.html">Home</a></li>
-      <li><a href="recipe.html">Recipe Generator</a></li>
-      <li><a href="planner.html">Meal Planner</a></li>
-      <li><a href="news.html">Food News</a></li>
-      <li><a href="feedback.html">Feedback</a></li>
-    </ul>
+    <div class="navbar-inner">
+      <div class="brand">👨‍🍳 Dishcovery</div>
+      <ul class="nav-links">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="recipe.html">Recipe Generator</a></li>
+        <li><a href="planner.html">Meal Planner</a></li>
+        <li><a href="news.html">Food News</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+      </ul>
+    </div>
   </nav>
 
-  <section class="hero">
-    <h1>Explore the world’s most loved dishes</h1>
-    <p id="quote">Good food is the foundation of happiness.</p>
-  </section>
-
-  <section class="section">
-    <h2>Categories</h2>
-    <div class="chips">
-      <div class="chip">Snacks</div><div class="chip">Desserts</div><div class="chip">Mains</div>
-      <div class="chip">Soups</div><div class="chip">Salads</div><div class="chip">Street Food</div>
+  <header class="section reveal">
+    <div class="card" style="padding:2rem; display:grid; grid-template-columns:1.1fr 0.9fr; gap:1rem; align-items:center;">
+      <div>
+        <h1 style="margin:0 0 .6rem 0;">Discover, plan, and savor smarter.</h1>
+        <p style="color:var(--muted); margin:0 0 1rem 0;">AI‑powered recipes, a sleek meal planner, food news, and a feedback hub — all in one place.</p>
+        <div style="display:flex; gap:.6rem; flex-wrap:wrap;">
+          <a class="btn" href="recipe.html">Generate recipes</a>
+          <a class="btn" href="planner.html" style="background: radial-gradient(120% 120% at 30% 30%, #a5b4fc 0%, #7c3aed 35%, #00f5ff 100%); color:#06101a;">Plan your week</a>
+        </div>
+      </div>
+      <div class="card" style="overflow:hidden;">
+        <img class="card-img" src="https://images.unsplash.com/photo-1493770348161-8f842db7305d?q=80&w=1200" alt="Hero dish">
+      </div>
     </div>
-  </section>
+  </header>
 
-  <section class="section">
-    <h2>Trending</h2>
+  <section class="section reveal">
+    <h2 style="margin:.2rem 0 1rem 0;">Trending flavors</h2>
     <div class="grid">
-      <div class="card"><img src="https://www.themealdb.com/images/media/meals/xxyupu1468262513.jpg"><div class="card-body"><h3>Butter Chicken</h3></div></div>
-      <div class="card"><img src="https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg"><div class="card-body"><h3>Pad Thai</h3></div></div>
+      <div class="card"><img class="card-img" src="https://www.themealdb.com/images/media/meals/xxyupu1468262513.jpg"><div class="card-body"><h3>Butter Chicken</h3></div></div>
+      <div class="card"><img class="card-img" src="https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg"><div class="card-body"><h3>Pad Thai</h3></div></div>
+      <div class="card"><img class="card-img" src="https://images.unsplash.com/photo-1512058564366-18510be2ca51?q=80&w=1200"><div class="card-body"><h3>Sushi</h3></div></div>
+      <div class="card"><img class="card-img" src="https://images.unsplash.com/photo-1484981138541-b1f17937a2cc?q=80&w=1200"><div class="card-body"><h3>Biryani</h3></div></div>
     </div>
   </section>
 
   <script>
-    const quotes=["Good food is the foundation of genuine happiness.","Cooking is love made visible.","Spices are the soul of a dish."];
-    let qi=0; setInterval(()=>{document.getElementById('quote').textContent=quotes[qi%quotes.length];qi++;},4000);
+    /* Insert the global high-tech JS here (from my previous message) */
   </script>
 </body>
 </html>
