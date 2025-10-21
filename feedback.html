@@ -12,15 +12,44 @@
       background-size: 400% 400%;
       animation: gradientBG 15s ease infinite;
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       color: #fff;
     }
     @keyframes gradientBG {
       0%{background-position:0% 50%}
       50%{background-position:100% 50%}
       100%{background-position:0% 50%}
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8rem 1.2rem;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(6px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-brand {
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: #fff;
+    }
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover {
+      color: #facc15;
     }
     .card {
       background: rgba(255,255,255,0.1);
@@ -30,6 +59,7 @@
       box-shadow: 0 8px 24px rgba(0,0,0,0.3);
       max-width: 500px;
       width: 90%;
+      margin: 2rem auto;
       animation: fadeIn 1s ease;
     }
     h1 { text-align: center; margin-top: 0; }
@@ -80,6 +110,17 @@
   </style>
 </head>
 <body>
+  <nav class="navbar">
+    <div class="nav-brand">👨‍🍳 Dishcovery</div>
+    <ul class="nav-links">
+      <li><a href="home.html">Home</a></li>
+      <li><a href="recipe.html">Recipe Generator</a></li>
+      <li><a href="planner.html">Meal Planner</a></li>
+      <li><a href="news.html">Food News</a></li>
+      <li><a href="feedback.html">Feedback</a></li>
+    </ul>
+  </nav>
+
   <div class="card">
     <h1>💬 Feedback</h1>
 
@@ -141,7 +182,6 @@
       document.getElementById('thankyou').style.display='block';
       setTimeout(()=>{document.getElementById('thankyou').style.display='none';},3000);
 
-      // Reset form
       document.getElementById('age').value="";
       document.getElementById('gender').value="";
       document.getElementById('occupation').value="";
