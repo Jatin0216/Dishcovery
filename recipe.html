@@ -5,36 +5,74 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dishcovery — Recipe Generator</title>
   <style>
-    body { margin:0; font-family:'Segoe UI',sans-serif; background:url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1600') no-repeat center/cover; min-height:100vh; color:#fff; }
-    .overlay { position:fixed; inset:0; background:rgba(0,0,0,0.55); backdrop-filter:blur(6px); z-index:-1; }
-    .navbar { display:flex; justify-content:space-between; align-items:center; padding:0.8rem 1.2rem; background:rgba(0,0,0,0.5); position:sticky; top:0; }
-    .nav-links { list-style:none; display:flex; gap:1rem; margin:0; padding:0; }
-    .nav-links a { color:#fff; text-decoration:none; }
-    .nav-links a:hover { color:#facc15; }
-    .form-card { max-width:600px; margin:2rem auto; background:rgba(255,255,255,0.1); border-radius:16px; padding:2rem; }
-    label { display:block; margin-top:1rem; font-weight:600; }
-    input,select { width:100%; padding:0.6rem; border-radius:8px; border:none; margin-top:0.3rem; }
-    button.cta { margin-top:1.5rem; width:100%; padding:0.8rem; border:none; border-radius:999px; background:linear-gradient(90deg,#f43f5e,#f97316); color:#fff; font-weight:bold; cursor:pointer; }
-    #loading { text-align:center; display:none; }
-    .chef-hat { font-size:3rem; animation:spin 2s linear infinite; }
-    @keyframes spin {from{transform:rotate(0)}to{transform:rotate(360deg)}}
-    #result { max-width:700px; margin:2rem auto; background:#fff; color:#111; border-radius:16px; padding:2rem; display:none; }
+    /* Paste the global high-tech theme CSS here (from home.html) */
   </style>
 </head>
-<body>
-  <div class="overlay"></div>
+<body class="bg-mesh">
   <nav class="navbar">
-    <div class="nav-brand">👨‍🍳 Dishcovery</div>
-    <ul class="nav-links">
-      <li><a href="home.html">Home</a></li>
-      <li><a href="recipe.html">Recipe Generator</a></li>
-      <li><a href="planner.html">Meal Planner</a></li>
-      <li><a href="news.html">Food News</a></li>
-      <li><a href="feedback.html">Feedback</a></li>
-    </ul>
+    <div class="navbar-inner">
+      <div class="brand">👨‍🍳 Dishcovery</div>
+      <ul class="nav-links">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="recipe.html">Recipe Generator</a></li>
+        <li><a href="planner.html">Meal Planner</a></li>
+        <li><a href="news.html">Food News</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+      </ul>
+    </div>
   </nav>
 
-  <div class="form-card">
-    <h1>🍳 Recipe Generator</h1>
-    <form id="recipeForm">
-      <label>Ingredients</label><input type="
+  <section class="section reveal">
+    <div class="card" style="padding:2rem;">
+      <h1>🍳 Recipe Generator</h1>
+      <p style="color:var(--muted)">Enter ingredients you have, and Dishcovery will suggest recipes.</p>
+      <form id="recipeForm">
+        <label>Ingredients (comma separated)</label>
+        <input type="text" id="ingredients" placeholder="e.g. chicken, rice, tomato">
+        <label>Cuisine</label>
+        <select id="cuisine">
+          <option value="">Any</option>
+          <option>Indian</option>
+          <option>Italian</option>
+          <option>Chinese</option>
+          <option>Mexican</option>
+        </select>
+        <button type="submit" class="btn" style="margin-top:1rem;">Generate Recipe</button>
+      </form>
+      <div id="loading" style="display:none; text-align:center; margin-top:1rem;">
+        <div class="chef-hat">👨‍🍳</div>
+        <p>Cooking up ideas...</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal">
+    <div id="result" class="card" style="display:none; padding:1.5rem;">
+      <h2>✨ Suggested Recipe</h2>
+      <p id="recipeOutput"></p>
+    </div>
+  </section>
+
+  <script>
+    /* Paste the global high-tech JS here (from home.html) */
+
+    const form = document.getElementById('recipeForm');
+    const loading = document.getElementById('loading');
+    const result = document.getElementById('result');
+    const output = document.getElementById('recipeOutput');
+
+    form.addEventListener('submit', e=>{
+      e.preventDefault();
+      loading.style.display='block';
+      result.style.display='none';
+      setTimeout(()=>{
+        loading.style.display='none';
+        result.style.display='block';
+        const ing = document.getElementById('ingredients').value;
+        const cui = document.getElementById('cuisine').value;
+        output.textContent = `Try making a delicious ${cui || 'fusion'} dish with ${ing || 'your ingredients'}!`;
+      },2000);
+    });
+  </script>
+</body>
+</html>
