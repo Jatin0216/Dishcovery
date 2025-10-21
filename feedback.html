@@ -5,162 +5,68 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dishcovery — Feedback</title>
   <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg,#6366f1,#ec4899,#f59e0b);
-      background-size: 400% 400%;
-      animation: gradientBG 15s ease infinite;
-      min-height: 100vh;
-      color: #fff;
-    }
-    @keyframes gradientBG {
-      0%{background-position:0% 50%}
-      50%{background-position:100% 50%}
-      100%{background-position:0% 50%}
-    }
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.8rem 1.2rem;
-      background: rgba(0,0,0,0.5);
-      backdrop-filter: blur(6px);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .nav-brand {
-      font-weight: bold;
-      font-size: 1.2rem;
-      color: #fff;
-    }
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 1rem;
-      margin: 0;
-      padding: 0;
-    }
-    .nav-links a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover {
-      color: #facc15;
-    }
-    .card {
-      background: rgba(255,255,255,0.1);
-      padding: 2rem;
-      border-radius: 16px;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-      max-width: 500px;
-      width: 90%;
-      margin: 2rem auto;
-      animation: fadeIn 1s ease;
-    }
-    h1 { text-align: center; margin-top: 0; }
-    .stars {
-      display: flex;
-      justify-content: center;
-      gap: 0.5rem;
-      font-size: 2rem;
-      cursor: pointer;
-      margin: 1rem 0;
-    }
-    .star { color: #ddd; transition: transform 0.2s, color 0.2s; }
-    .star:hover { transform: scale(1.2); }
-    .star.selected { color: gold; }
-    label { display:block; margin-top:1rem; font-weight:600; }
-    input, select, textarea {
-      width: 100%;
-      padding: 0.6rem;
-      border-radius: 8px;
-      border: none;
-      margin-top: 0.3rem;
-      font-family: inherit;
-    }
-    textarea { min-height: 100px; }
-    button {
-      margin-top: 1rem;
-      width: 100%;
-      padding: 0.8rem;
-      border: none;
-      border-radius: 999px;
-      background: linear-gradient(90deg,#f43f5e,#f97316);
-      color: #fff;
-      font-size: 1rem;
-      font-weight: bold;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-    button:hover { transform: scale(1.05); }
-    .thankyou {
-      display: none;
-      text-align: center;
-      font-size: 1.2rem;
-      animation: popIn 0.8s ease;
-      margin-top: 1rem;
-    }
-    @keyframes fadeIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
-    @keyframes popIn { from{transform:scale(0.8);opacity:0} to{transform:scale(1);opacity:1} }
+    /* Paste the global high-tech theme CSS here (same as in home.html) */
   </style>
 </head>
-<body>
+<body class="bg-mesh">
   <nav class="navbar">
-    <div class="nav-brand">👨‍🍳 Dishcovery</div>
-    <ul class="nav-links">
-      <li><a href="home.html">Home</a></li>
-      <li><a href="recipe.html">Recipe Generator</a></li>
-      <li><a href="planner.html">Meal Planner</a></li>
-      <li><a href="news.html">Food News</a></li>
-      <li><a href="feedback.html">Feedback</a></li>
-    </ul>
+    <div class="navbar-inner">
+      <div class="brand">👨‍🍳 Dishcovery</div>
+      <ul class="nav-links">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="recipe.html">Recipe Generator</a></li>
+        <li><a href="planner.html">Meal Planner</a></li>
+        <li><a href="news.html">Food News</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+      </ul>
+    </div>
   </nav>
 
-  <div class="card">
-    <h1>💬 Feedback</h1>
+  <section class="section reveal">
+    <div class="card" style="padding:2rem; max-width:600px; margin:auto;">
+      <h1>💬 Feedback</h1>
+      <p style="color:var(--muted)">We’d love to hear your thoughts! Share your details and feedback below.</p>
 
-    <label for="age">Age</label>
-    <input type="number" id="age" placeholder="Enter your age" min="5" max="120">
+      <label for="age">Age</label>
+      <input type="number" id="age" placeholder="Enter your age" min="5" max="120">
 
-    <label for="gender">Gender</label>
-    <select id="gender">
-      <option value="">Select</option>
-      <option>Male</option>
-      <option>Female</option>
-      <option>Other</option>
-      <option>Prefer not to say</option>
-    </select>
+      <label for="gender">Gender</label>
+      <select id="gender">
+        <option value="">Select</option>
+        <option>Male</option>
+        <option>Female</option>
+        <option>Other</option>
+        <option>Prefer not to say</option>
+      </select>
 
-    <label for="occupation">Occupation</label>
-    <input type="text" id="occupation" placeholder="e.g. Student, Chef, Engineer">
+      <label for="occupation">Occupation</label>
+      <input type="text" id="occupation" placeholder="e.g. Student, Chef, Engineer">
 
-    <div class="stars" id="stars">
-      <span class="star" data-value="1">★</span>
-      <span class="star" data-value="2">★</span>
-      <span class="star" data-value="3">★</span>
-      <span class="star" data-value="4">★</span>
-      <span class="star" data-value="5">★</span>
+      <div class="stars" id="stars" style="display:flex;justify-content:center;gap:.5rem;font-size:2rem;margin:1rem 0;cursor:pointer;">
+        <span class="star" data-value="1">★</span>
+        <span class="star" data-value="2">★</span>
+        <span class="star" data-value="3">★</span>
+        <span class="star" data-value="4">★</span>
+        <span class="star" data-value="5">★</span>
+      </div>
+
+      <textarea id="comment" placeholder="Share your thoughts..."></textarea>
+      <button class="btn" onclick="submitFeedback()">Submit</button>
+      <div id="thankyou" style="display:none;text-align:center;margin-top:1rem;">🎉 Thank you for your feedback!</div>
     </div>
-
-    <textarea id="comment" placeholder="Share your thoughts..."></textarea>
-    <button onclick="submitFeedback()">Submit</button>
-    <div class="thankyou" id="thankyou">🎉 Thank you for your feedback!</div>
-  </div>
+  </section>
 
   <script>
+    /* Paste the global high-tech JS here (same as in home.html) */
+
     const stars = document.querySelectorAll('.star');
     let rating = 0;
 
     stars.forEach(star=>{
       star.addEventListener('click',()=>{
         rating = star.dataset.value;
-        stars.forEach(s=>s.classList.remove('selected'));
-        for(let i=0;i<rating;i++){ stars[i].classList.add('selected'); }
+        stars.forEach(s=>s.style.color="#ddd");
+        for(let i=0;i<rating;i++){ stars[i].style.color="gold"; }
       });
     });
 
@@ -186,7 +92,7 @@
       document.getElementById('gender').value="";
       document.getElementById('occupation').value="";
       document.getElementById('comment').value="";
-      stars.forEach(s=>s.classList.remove('selected'));
+      stars.forEach(s=>s.style.color="#ddd");
       rating=0;
     }
   </script>
