@@ -44,15 +44,16 @@
     .star { color: #ddd; transition: transform 0.2s, color 0.2s; }
     .star:hover { transform: scale(1.2); }
     .star.selected { color: gold; }
-    textarea {
+    label { display:block; margin-top:1rem; font-weight:600; }
+    input, select, textarea {
       width: 100%;
-      min-height: 100px;
+      padding: 0.6rem;
       border-radius: 8px;
       border: none;
-      padding: 0.6rem;
-      margin-top: 1rem;
+      margin-top: 0.3rem;
       font-family: inherit;
     }
+    textarea { min-height: 100px; }
     button {
       margin-top: 1rem;
       width: 100%;
@@ -72,6 +73,7 @@
       text-align: center;
       font-size: 1.2rem;
       animation: popIn 0.8s ease;
+      margin-top: 1rem;
     }
     @keyframes fadeIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
     @keyframes popIn { from{transform:scale(0.8);opacity:0} to{transform:scale(1);opacity:1} }
@@ -80,6 +82,22 @@
 <body>
   <div class="card">
     <h1>💬 Feedback</h1>
+
+    <label for="age">Age</label>
+    <input type="number" id="age" placeholder="Enter your age" min="5" max="120">
+
+    <label for="gender">Gender</label>
+    <select id="gender">
+      <option value="">Select</option>
+      <option>Male</option>
+      <option>Female</option>
+      <option>Other</option>
+      <option>Prefer not to say</option>
+    </select>
+
+    <label for="occupation">Occupation</label>
+    <input type="text" id="occupation" placeholder="e.g. Student, Chef, Engineer">
+
     <div class="stars" id="stars">
       <span class="star" data-value="1">★</span>
       <span class="star" data-value="2">★</span>
@@ -87,6 +105,7 @@
       <span class="star" data-value="4">★</span>
       <span class="star" data-value="5">★</span>
     </div>
+
     <textarea id="comment" placeholder="Share your thoughts..."></textarea>
     <button onclick="submitFeedback()">Submit</button>
     <div class="thankyou" id="thankyou">🎉 Thank you for your feedback!</div>
@@ -105,16 +124,27 @@
     });
 
     function submitFeedback(){
+      const age = document.getElementById('age').value;
+      const gender = document.getElementById('gender').value;
+      const occupation = document.getElementById('occupation').value;
       const comment = document.getElementById('comment').value;
+
       if(rating===0 && comment.trim()===""){
         alert("Please give a rating or comment!");
         return;
       }
+
       const feedback = JSON.parse(localStorage.getItem('feedback')||'[]');
-      feedback.push({rating,comment});
+      feedback.push({age,gender,occupation,rating,comment});
       localStorage.setItem('feedback',JSON.stringify(feedback));
+
       document.getElementById('thankyou').style.display='block';
       setTimeout(()=>{document.getElementById('thankyou').style.display='none';},3000);
+
+      // Reset form
+      document.getElementById('age').value="";
+      document.getElementById('gender').value="";
+      document.getElementById('occupation').value="";
       document.getElementById('comment').value="";
       stars.forEach(s=>s.classList.remove('selected'));
       rating=0;
